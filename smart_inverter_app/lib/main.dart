@@ -8,10 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 // ─── API Base URL ────────────────────────────────────────────────────
-// • Android Emulator : use 10.0.2.2 (loopback to host PC)
-// • Real Device      : replace with your PC's local IP, e.g. 192.168.1.5
-// • Desktop/Web      : use localhost
-const String kApiBase = 'http://localhost:3000';     // ← desktop/web (active)
+// Replace this with your actual deployed backend URL (e.g. Render)
+const String kApiBase = 'https://smart-inverter-api.onrender.com';
+// const String kApiBase = 'http://localhost:3000';     // ← desktop/web (active)
 // const String kApiBase = 'http://10.0.2.2:3000';     // ← Android emulator
 // const String kApiBase = 'http://192.168.1.5:3000';  // ← real device (use your PC's IP)
 

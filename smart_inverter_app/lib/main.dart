@@ -173,7 +173,7 @@ class _DashboardPageState extends State<DashboardPage>
     try {
       final response = await http
           .get(Uri.parse('$kApiBase/power'))
-          .timeout(const Duration(seconds: 8));
+          .timeout(const Duration(seconds: 60));
 
       if (response.statusCode != 200) {
         throw Exception('Server returned ${response.statusCode}');
@@ -245,7 +245,7 @@ class _DashboardPageState extends State<DashboardPage>
       final uri = Uri.parse(
         '$kApiBase/history?field=$_historyField&range=$_historyRange',
       );
-      final response = await http.get(uri).timeout(const Duration(seconds: 12));
+      final response = await http.get(uri).timeout(const Duration(seconds: 60));
       if (response.statusCode != 200) throw Exception('${response.statusCode}');
       final body = json.decode(response.body) as Map<String, dynamic>;
       final raw = body['points'] as List<dynamic>;

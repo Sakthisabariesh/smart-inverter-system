@@ -58,8 +58,9 @@ async function getHistoryData(field, range) {
 
   range = range || '1h'
 
-  // Aggregate window keeps ~60 data points per chart regardless of range
-  const windowMap = { '1h': '1m', '6h': '6m', '24h': '24m' }
+  // Aggregate window adjusted to provide higher resolution data (more points)
+  // This makes the Flutter chart look much more detailed, like Grafana.
+  const windowMap = { '1h': '15s', '6h': '2m', '24h': '10m' }
   const every = windowMap[range] || '1m'
 
   const fluxQuery = `

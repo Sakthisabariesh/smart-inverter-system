@@ -1,4 +1,4 @@
-const { InfluxDB } = require('@influxdata/influxdb-client')
+const { InfluxDB, Point } = require('@influxdata/influxdb-client')
 
 const url = process.env.INFLUX_URL
 const token = process.env.INFLUX_TOKEN
@@ -7,6 +7,16 @@ const bucket = process.env.INFLUX_BUCKET
 
 const influxDB = new InfluxDB({ url, token })
 const queryApi = influxDB.getQueryApi(org)
+const writeApi = influxDB.getWriteApi(org, bucket, 'ns')
+
+/* Keep InfluxDB alive */
+function keepInfluxAlive() {
+  const point = new Point('keep_alive').floatField('ping', 1.0)
+  writeApi.writePoint(point)
+  writeApi.flush()
+    .then(() => console.log('InfluxDB keep-alive ping sent'))
+    .catch((err) => console.error('Error sending keep-alive to InfluxDB', err))
+}
 
 /* Get the latest single data point (all fields) */
 async function getPowerData() {
@@ -89,4 +99,4 @@ from(bucket: "${bucket}")
   })
 }
 
-module.exports = { getPowerData, getHistoryData }
+module.exports = { getPowerData, getHistoryData, keepInfluxAlive }

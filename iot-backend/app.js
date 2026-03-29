@@ -4,7 +4,7 @@ const express = require('express')
 const cors = require('cors')
 const axios = require('axios')
 
-const { getPowerData, getHistoryData } = require('./influx')
+const { getPowerData, getHistoryData, keepInfluxAlive } = require('./influx')
 const { getSystemMode, applyLoadScheduling } = require('./services/scheduler')
 const { updateConfig, getConfig } = require('./config/schedulerConfig')
 const { getLoads, updateLoad } = require('./models/loads')
@@ -174,4 +174,8 @@ const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
+  
+  // Keep Influx Serverless cloud alive
+  keepInfluxAlive()
+  setInterval(keepInfluxAlive, 10 * 60 * 1000)
 })

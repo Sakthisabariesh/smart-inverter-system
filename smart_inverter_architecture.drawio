@@ -1,0 +1,228 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" version="29.6.6">
+  <diagram id="oXp-DsfapLGcGmuKuD71" name="Page-1">
+    <mxGraphModel dx="2490" dy="1062" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;fontColor=#1a237e;" value="Energy Monitoring System Architecture" vertex="1">
+          <mxGeometry height="40" width="1000" x="327" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#455a64;" value="IoT · Cloud · Mobile" vertex="1">
+          <mxGeometry height="20" width="1000" x="327" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="layer1_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#43a047;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="920" width="220" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="layer1_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#2e7d32;" value="⚡ HARDWARE LAYER" vertex="1">
+          <mxGeometry height="25" width="220" x="40" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="layer2_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="920" width="220" x="290" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="layer2_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#1565c0;" value="🔌 IoT PIPELINE" vertex="1">
+          <mxGeometry height="25" width="220" x="290" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="layer3_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c62828;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="920" width="220" x="540" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="layer3_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#b71c1c;" value="☁️ CLOUD BACKEND" vertex="1">
+          <mxGeometry height="25" width="220" x="540" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="layer4_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="920" width="220" x="790" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="layer4_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#bf360c;" value="🔧 CI/CD &amp; VERSION CONTROL" vertex="1">
+          <mxGeometry height="25" width="220" x="790" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="layer5_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#6a1b9a;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="920" width="220" x="1040" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="layer5_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#4a148c;" value="📱 FRONTEND (Flutter)" vertex="1">
+          <mxGeometry height="25" width="220" x="1040" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="layer6_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f7fa;strokeColor=#006064;strokeWidth=2;opacity=40;" value="" vertex="1">
+          <mxGeometry height="920" width="220" x="1290" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="layer6_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#00363a;" value="👤 END USER" vertex="1">
+          <mxGeometry height="25" width="220" x="1290" y="105" as="geometry" />
+        </mxCell>
+        <mxCell id="solar" parent="1" style="shape=mxgraph.cisco.computers_and_peripherals.pc;sketch=0;html=1;pointerEvents=1;dashed=0;fillColor=#ffee58;strokeColor=#f9a825;shadow=0;fontSize=12;align=center;fontStyle=1;" value="☀️ Solar Panels&#xa;(PV Array)" vertex="1">
+          <mxGeometry height="60" width="60" x="80" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="solar_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=#f57f17;" value="☀️ Solar Panels&#xa;(PV Array)" vertex="1">
+          <mxGeometry height="30" width="100" x="60" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="battery" parent="1" style="shape=mxgraph.cisco.computers_and_peripherals.server;sketch=0;html=1;pointerEvents=1;dashed=0;fillColor=#a5d6a7;strokeColor=#2e7d32;shadow=0;fontSize=12;align=center;" value="🔋 Battery Bank&#xa;(Storage)" vertex="1">
+          <mxGeometry height="60" width="60" x="80" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="battery_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=#1b5e20;" value="🔋 Battery Bank&#xa;(Storage)" vertex="1">
+          <mxGeometry height="30" width="100" x="60" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="load" parent="1" style="shape=mxgraph.cisco.computers_and_peripherals.workstation;sketch=0;html=1;pointerEvents=1;dashed=0;fillColor=#ef9a9a;strokeColor=#c62828;shadow=0;fontSize=12;align=center;" value="💡 Building Load&#xa;(Consumers)" vertex="1">
+          <mxGeometry height="60" width="60" x="80" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="load_label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontStyle=1;fontColor=#b71c1c;" value="💡 Building Load&#xa;(Consumers)" vertex="1">
+          <mxGeometry height="30" width="100" x="60" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="inverter" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#43a047;strokeColor=#1b5e20;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="⚡Energy Monitoring&lt;br&gt;(Core Hardware)&lt;br&gt;&lt;br&gt;Measures:&lt;br&gt;• Solar Power (W)&lt;br&gt;• Load Power (W)&lt;br&gt;• Battery Voltage (V)&lt;br&gt;• Temperature (°C)" vertex="1">
+          <mxGeometry height="150" width="170" x="55" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="sensors" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#66bb6a;strokeColor=#2e7d32;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="📡 IoT Sensors&#xa;&amp; MQTT Module" vertex="1">
+          <mxGeometry height="60" width="170" x="55" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="hw_to_mqtt" edge="1" parent="1" source="sensors" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#1565c0;strokeWidth=2;fillColor=#1565c0;" target="nodered">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hw_to_mqtt_label" connectable="0" parent="hw_to_mqtt" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#1565c0;" value="MQTT / HTTP" vertex="1">
+          <mxGeometry relative="1" x="-0.1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="solar_to_inv" edge="1" parent="1" source="solar" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#f9a825;strokeWidth=1.5;" target="inverter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bat_to_inv" edge="1" parent="1" source="battery" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#2e7d32;strokeWidth=1.5;" target="inverter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="load_to_inv" edge="1" parent="1" source="load" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#c62828;strokeWidth=1.5;" target="inverter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inv_to_sens" edge="1" parent="1" source="inverter" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#388e3c;strokeWidth=1.5;" target="sensors">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nodered" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1565c0;strokeColor=#0d47a1;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="🔴 Node-RED&#xa;(MQTT/HTTP Bridge)&#xa;&#xa;• Subscribes to MQTT&#xa;• Transforms payloads&#xa;• Forwards to InfluxDB&#xa;• Runs in Docker&#xa;  Container" vertex="1">
+          <mxGeometry height="200" width="180" x="305" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="docker_badge" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0288d1;strokeColor=#01579b;fontColor=#ffffff;fontSize=10;fontStyle=1;align=center;" value="🐳 Docker" vertex="1">
+          <mxGeometry height="30" width="80" x="355" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="proto_note" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;fontSize=10;align=center;" value="Protocols:&#xa;MQTT (port 1883)&#xa;HTTP POST" vertex="1">
+          <mxGeometry height="60" width="180" x="305" y="655" as="geometry" />
+        </mxCell>
+        <mxCell id="nr_to_influx" edge="1" parent="1" source="nodered" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#c62828;strokeWidth=2;fillColor=#c62828;" target="influxdb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nr_to_influx_label" connectable="0" parent="nr_to_influx" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#c62828;" value="HTTPS / Write API" vertex="1">
+          <mxGeometry relative="1" x="-0.1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="influxdb" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c62828;strokeColor=#b71c1c;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="📊 InfluxDB Cloud&#xa;(Time-Series DB)&#xa;&#xa;• Stores sensor data&#xa;• Flux query language&#xa;• Serverless instance&#xa;• Free tier active&#xa;• Heartbeat needed" vertex="1">
+          <mxGeometry height="200" width="180" x="555" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="nodejs" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e53935;strokeColor=#b71c1c;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="🟢 Node.js API&#xa;(Express REST)&#xa;&#xa;• Deployed on Render&#xa;• GET /api/latest&#xa;• GET /api/history&#xa;• Queries InfluxDB&#xa;• Returns JSON" vertex="1">
+          <mxGeometry height="200" width="180" x="555" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="render_badge" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff7043;strokeColor=#bf360c;fontColor=#ffffff;fontSize=10;fontStyle=1;align=center;" value="☁️ Render Cloud" vertex="1">
+          <mxGeometry height="30" width="130" x="580" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="influx_to_node" edge="1" parent="1" source="influxdb" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#e53935;strokeWidth=2;" target="nodejs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="influx_to_node_label" connectable="0" parent="influx_to_node" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#e53935;" value="Flux Query" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="node_to_flutter" edge="1" parent="1" source="nodejs" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#6a1b9a;strokeWidth=2.5;fillColor=#6a1b9a;" target="flutter_app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="node_to_flutter_label" connectable="0" parent="node_to_flutter" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#6a1b9a;" value="REST API (HTTPS / JSON)" vertex="1">
+          <mxGeometry relative="1" x="-0.1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="github" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#37474f;strokeColor=#263238;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="🐙 GitHub&#xa;(Version Control)&#xa;&#xa;• Source code hosting&#xa;• Branch protection&#xa;• Pull requests&#xa;• Release tags" vertex="1">
+          <mxGeometry height="180" width="180" x="805" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="gh_actions" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#546e7a;strokeColor=#37474f;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="⚙️ GitHub Actions&#xa;(CI/CD Pipeline)&#xa;&#xa;• flutter-build.yml&#xa;• Android APK build&#xa;• Windows EXE build&#xa;• Auto on push/PR&#xa;• Artifact upload" vertex="1">
+          <mxGeometry height="200" width="180" x="805" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="render_deploy" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff7043;strokeColor=#bf360c;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="🚀 Render Auto-Deploy&#xa;&#xa;• Linked to GitHub&#xa;• Auto-deploys on push&#xa;  to main branch&#xa;• Node.js service&#xa;• Free tier" vertex="1">
+          <mxGeometry height="160" width="180" x="805" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="gh_to_actions" edge="1" parent="1" source="github" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#546e7a;strokeWidth=2;" target="gh_actions">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gh_to_actions_label" connectable="0" parent="gh_to_actions" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#546e7a;" value="on: push / PR" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gh_to_render" edge="1" parent="1" source="gh_actions" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#ff7043;strokeWidth=2;" target="render_deploy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gh_to_render_label" connectable="0" parent="gh_to_render" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#ff7043;" value="Deploy trigger" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="render_to_node" edge="1" parent="1" source="render_deploy" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#ff7043;strokeWidth=1.5;dashed=1;" target="nodejs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="render_to_node_label" connectable="0" parent="render_to_node" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#ff7043;" value="Deploys to" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flutter_app" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7b1fa2;strokeColor=#4a148c;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="📱 Flutter App&#xa;(Dart — Cross-Platform)&#xa;&#xa;Screens:&#xa;• Home Dashboard&#xa;• Net-Zero Analysis&#xa;• Settings&#xa;&#xa;Libraries:&#xa;• fl_chart&#xa;• google_fonts&#xa;• shared_preferences&#xa;&#xa;Platforms:&#xa;• Android APK&#xa;• Windows .exe&#xa;• Web Build" vertex="1">
+          <mxGeometry height="380" width="185" x="1055" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="sharedpref" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ab47bc;strokeColor=#7b1fa2;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="💾 SharedPreferences&#xa;(Local Storage)&#xa;&#xa;• Electricity Rate ₹/kWh&#xa;• CO₂ Factor kg/kWh&#xa;• System Cost ₹&#xa;• Baseline Load kWh" vertex="1">
+          <mxGeometry height="160" width="185" x="1055" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="flutter_to_pref" edge="1" parent="1" source="flutter_app" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#ab47bc;strokeWidth=1.5;" target="sharedpref">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flutter_to_pref_label" connectable="0" parent="flutter_to_pref" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#ab47bc;" value="R/W Settings" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="actions_to_flutter" edge="1" parent="1" source="gh_actions" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.2;entryDx=0;entryDy=0;strokeColor=#546e7a;strokeWidth=1.5;dashed=1;" target="flutter_app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="actions_to_flutter_label" connectable="0" parent="actions_to_flutter" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#546e7a;" value="Build APK / EXE" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="user" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00838f;strokeColor=#006064;fontColor=#ffffff;fontSize=11;fontStyle=1;align=center;" value="👤 Household User&#xa;&#xa;• Views live dashboard&#xa;• Monitors Solar (W)&#xa;• Checks Battery %&#xa;• Reads Net-Zero status&#xa;• Configures settings&#xa;• Tracks CO₂ savings&#xa;• Reviews ROI / payback" vertex="1">
+          <mxGeometry height="270" width="180" x="1305" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="flutter_to_user" edge="1" parent="1" source="flutter_app" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#00838f;strokeWidth=2.5;fillColor=#00838f;" target="user">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="flutter_to_user_label" connectable="0" parent="flutter_to_user" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#00838f;" value="UI / UX Interaction" vertex="1">
+          <mxGeometry relative="1" x="-0.1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#9e9e9e;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="50" width="1470" x="40" y="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;" value="📌 Data Flow Legend:" vertex="1">
+          <mxGeometry height="30" width="160" x="55" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#1565c0;" value="⟶  MQTT/HTTP (Sensor → Node-RED)" vertex="1">
+          <mxGeometry height="30" width="230" x="200" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#c62828;" value="⟶  HTTPS Write (Node-RED → InfluxDB)" vertex="1">
+          <mxGeometry height="30" width="240" x="440" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#e53935;" value="⟶  Flux Query (InfluxDB → Node.js)" vertex="1">
+          <mxGeometry height="30" width="230" x="690" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#6a1b9a;" value="⟶  REST JSON (Node.js → Flutter)" vertex="1">
+          <mxGeometry height="30" width="220" x="930" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#00838f;" value="⟶  UI Interaction (Flutter → User)" vertex="1">
+          <mxGeometry height="30" width="200" x="1160" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="leg6" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontColor=#546e7a;" value="- - ▶  CI/CD Pipeline" vertex="1">
+          <mxGeometry height="30" width="130" x="1370" y="1010" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -287,23 +287,6 @@ dependencies:
 }
 ```
 
----
-
-## 👥 Team
-
-> **IEEE STB61541 — Sona College of Technology, Salem**
-> Submitted for: *Green CODE Net-Zero Sprint Building App Challenge — April 08, 2026*
-
-| Name | Role |
-|---|---|
-| _____________________ | Lead Developer |
-| _____________________ | IoT & Backend |
-| _____________________ | UI/UX Design |
-| _____________________ | Data Analysis |
-
-**Department:** _____________________
-
----
 
 ## 📄 License
 

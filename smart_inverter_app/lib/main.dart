@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:convert';
 import 'dart:math' as math;
 
@@ -7,14 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
+import 'ai_insights_tab.dart';
 import 'net_zero_screen.dart';
 import 'user_settings.dart';
 
 // ─── API Base URL ────────────────────────────────────────────────────
-const String kApiBase = 'https://smart-inverter-api.onrender.com';
-// const String kApiBase = 'http://localhost:3000';
-// const String kApiBase = 'http://10.0.2.2:3000';
-// const String kApiBase = 'http://192.168.1.5:3000';
+// Auto-selects correct backend URL per platform:
+//   Web      → deployed Render URL (or same origin in production)
+//   Android  → 10.0.2.2 for emulator, real IP for physical device
+//   Desktop  → localhost
+const String _kApiLocalhost  = 'http://127.0.0.1:8000';
+const String _kApiProduction = 'https://smart-inverter-api.onrender.com';
+final String kApiBase = kIsWeb ? _kApiProduction : _kApiLocalhost;
 
 // ─────────────────────────── App Entry ───────────────────────────────
 void main() async {
@@ -176,6 +181,7 @@ class _DashboardPageState extends State<DashboardPage>
   late AnimationController _pulseCtrl;
 
   List<HistoryPoint> _historyPoints = [];
+  List<HistoryPoint> _predictionPoints = [];
   bool _historyLoading = false;
   String _historyField  = 'pv_input_w';
   String _historyRange  = '1h';
@@ -208,7 +214,7 @@ class _DashboardPageState extends State<DashboardPage>
     _fetchData();
     _fetchHistory();
     _refreshTimer = Timer.periodic(
-      const Duration(seconds: 30),
+      const Duration(seconds: 15),  // Faster refresh for live data
       (_) { _fetchData(); _fetchHistory(); },
     );
   }
@@ -225,7 +231,7 @@ class _DashboardPageState extends State<DashboardPage>
     try {
       final response = await http
           .get(Uri.parse('$kApiBase/power'))
-          .timeout(const Duration(seconds: 60));
+          .timeout(const Duration(seconds: 10));  // Fail fast
       if (response.statusCode != 200) throw Exception('${response.statusCode}');
       final raw = json.decode(response.body) as Map<String, dynamic>;
       final voltage     = (raw['voltage']     ?? raw['battery_voltage']  ?? 0).toDouble();
@@ -258,18 +264,22 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   Future<void> _fetchHistory() async {
-    setState(() => _historyLoading = true);
+    setState(() { _historyLoading = true; _predictionPoints = []; });
     try {
       final uri = Uri.parse('$kApiBase/history?field=$_historyField&range=$_historyRange');
-      final response = await http.get(uri).timeout(const Duration(seconds: 60));
+      final response = await http.get(uri).timeout(const Duration(seconds: 10));
       if (response.statusCode != 200) throw Exception('${response.statusCode}');
       final body = json.decode(response.body) as Map<String, dynamic>;
       final raw  = body['points'] as List<dynamic>;
+      
+      List<HistoryPoint> preds = [];
+
       setState(() {
         _historyPoints = raw.map((p) => HistoryPoint(
-          time: DateTime.parse(p['time'] as String),
+          time: DateTime.parse(p['time'] as String).toLocal(),
           value: (p['value'] as num).toDouble(),
         )).toList();
+        _predictionPoints = preds;
         _historyLoading = false;
       });
     } catch (_) {
@@ -284,95 +294,130 @@ class _DashboardPageState extends State<DashboardPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.bg,
-      body: SafeArea(
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            _buildHeader(),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: AppColors.bg,
+        body: SafeArea(
+          child: Column(
+            children: [
+              _buildHeader(),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                height: 40,
+                decoration: BoxDecoration(
+                  color: AppColors.card,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: TabBar(
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: const LinearGradient(
+                      colors: [AppColors.solar, AppColors.voltage],
+                      begin: Alignment.centerLeft, end: Alignment.centerRight,
+                    ),
+                  ),
+                  dividerColor: Colors.transparent,
+                  labelStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w700),
+                  unselectedLabelStyle: GoogleFonts.inter(fontSize: 12),
+                  labelColor: Colors.black,
+                  unselectedLabelColor: AppColors.textSecondary,
+                  tabs: const [Tab(text: 'Live View'), Tab(text: 'AI Forecasts')],
+                ),
+              ),
+              Expanded(
+                child: TabBarView(
+                  physics: const BouncingScrollPhysics(),
                   children: [
-                    const SizedBox(height: 16),
-                    _buildStatusBanner(),
-                    const SizedBox(height: 20),
-                    _buildEnergyOverviewRow(),
-                    const SizedBox(height: 20),
-                    _buildLabel('Power Metrics'),
-                    const SizedBox(height: 12),
-                    _buildMetricGrid(),
-                    const SizedBox(height: 20),
-                    _buildLabel('Energy Flow'),
-                    const SizedBox(height: 12),
-                    _buildEnergyFlowCard(),
-                    const SizedBox(height: 20),
-                    _buildLabel('Historical Trends'),
-                    const SizedBox(height: 12),
-                    _buildHistoryChart(),
-                    const SizedBox(height: 20),
-                    _buildLabel('Net-Zero Snapshot'),
-                    const SizedBox(height: 12),
-                    _buildNetZeroRow(),
+                    _buildLiveTab(),
+                    const AIInsightsTab(),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () { _fetchData(); _fetchHistory(); },
+          backgroundColor: AppColors.solar,
+          foregroundColor: Colors.black,
+          elevation: 0,
+          child: _isLoading
+              ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black))
+              : const Icon(Icons.refresh_rounded),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () { _fetchData(); _fetchHistory(); },
-        backgroundColor: AppColors.solar,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        child: _isLoading
-            ? const SizedBox(width: 20, height: 20,
-                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black))
-            : const Icon(Icons.refresh_rounded),
+    );
+  }
+
+  Widget _buildLiveTab() {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 16),
+            _buildStatusBanner(),
+            const SizedBox(height: 20),
+            _buildEnergyOverviewRow(),
+            const SizedBox(height: 20),
+            _buildLabel('Power Metrics'),
+            const SizedBox(height: 12),
+            _buildMetricGrid(),
+            const SizedBox(height: 20),
+            _buildLabel('Energy Flow'),
+            const SizedBox(height: 12),
+            _buildEnergyFlowCard(),
+            const SizedBox(height: 20),
+            _buildLabel('Historical Trends'),
+            const SizedBox(height: 12),
+            _buildHistoryChart(),
+            const SizedBox(height: 20),
+            _buildLabel('Net-Zero Snapshot'),
+            const SizedBox(height: 12),
+            _buildNetZeroRow(),
+          ],
+        ),
       ),
     );
   }
 
   // ── Header ─────────────────────────────────────────────────────────
   Widget _buildHeader() {
-    return SliverAppBar(
-      pinned: true,
-      backgroundColor: AppColors.surface,
-      expandedHeight: 70,
-      flexibleSpace: FlexibleSpaceBar(
-        titlePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        title: Row(
-          children: [
-            Container(
-              width: 34, height: 34,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [AppColors.solar, Color(0xFFF97316)],
-                  begin: Alignment.topLeft, end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(10),
+    return Container(
+      color: AppColors.surface,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
+        children: [
+          Container(
+            width: 34, height: 34,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppColors.solar, Color(0xFFF97316)],
+                begin: Alignment.topLeft, end: Alignment.bottomRight,
               ),
-              child: const Icon(Icons.electric_bolt, color: Colors.black, size: 18),
+              borderRadius: BorderRadius.circular(10),
             ),
-            const SizedBox(width: 10),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Smart Inverter', style: GoogleFonts.inter(
-                  fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
-                Text('Home Dashboard', style: GoogleFonts.inter(
-                  fontSize: 10, color: AppColors.textSecondary)),
-              ],
-            ),
-            const Spacer(),
-            _LiveIndicator(isLoading: _isLoading),
-          ],
-        ),
+            child: const Icon(Icons.electric_bolt, color: Colors.black, size: 18),
+          ),
+          const SizedBox(width: 10),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Smart Inverter', style: GoogleFonts.inter(
+                fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+              Text('Home Dashboard', style: GoogleFonts.inter(
+                fontSize: 10, color: AppColors.textSecondary)),
+            ],
+          ),
+          const Spacer(),
+          _LiveIndicator(isLoading: _isLoading),
+        ],
       ),
     );
   }
@@ -675,8 +720,12 @@ class _DashboardPageState extends State<DashboardPage>
   Widget _buildLineChart() {
     final color  = _fieldColors[_historyField]!;
     final unit   = _fieldUnits[_historyField]!;
-    double minY  = _historyPoints.map((p) => p.value).reduce(math.min);
-    double maxY  = _historyPoints.map((p) => p.value).reduce(math.max);
+    
+    final allPoints = [..._historyPoints, ..._predictionPoints];
+    if (allPoints.isEmpty) return const SizedBox();
+
+    double minY  = allPoints.map((p) => p.value).reduce(math.min);
+    double maxY  = allPoints.map((p) => p.value).reduce(math.max);
     final yRange = maxY - minY;
     if (yRange == 0) { minY -= 10; maxY += 10; }
     else { minY -= yRange * 0.1; maxY += yRange * 0.1; }
@@ -684,6 +733,18 @@ class _DashboardPageState extends State<DashboardPage>
 
     final spots = _historyPoints.map((p) =>
       FlSpot(p.time.millisecondsSinceEpoch.toDouble(), p.value)).toList();
+      
+    final predSpots = _predictionPoints.map((p) =>
+      FlSpot(p.time.millisecondsSinceEpoch.toDouble(), p.value)).toList();
+
+    // If we have predictions, connect the last history point to the first prediction point
+    if (spots.isNotEmpty && predSpots.isNotEmpty) {
+      predSpots.insert(0, spots.last);
+    }
+
+    final intervalX = _historyRange == '1h' ? 10 * 60 * 1000.0
+        : _historyRange == '6h' ? 60 * 60 * 1000.0 
+        : 4 * 60 * 60 * 1000.0;
 
     return LineChart(LineChartData(
       gridData: FlGridData(
@@ -699,14 +760,14 @@ class _DashboardPageState extends State<DashboardPage>
         )),
         bottomTitles: AxisTitles(sideTitles: SideTitles(
           showTitles: true, reservedSize: 22,
-          interval: _historyRange == '1h' ? 10 * 60 * 1000
-              : _historyRange == '6h' ? 60 * 60 * 1000 : 4 * 60 * 60 * 1000,
+          interval: intervalX,
           getTitlesWidget: (v, _) {
             final d = DateTime.fromMillisecondsSinceEpoch(v.toInt());
+            String text = '${d.hour.toString().padLeft(2,'0')}:${d.minute.toString().padLeft(2,'0')}';
+            
             return Padding(
               padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                '${d.hour.toString().padLeft(2,'0')}:${d.minute.toString().padLeft(2,'0')}',
+              child: Text(text,
                 style: GoogleFonts.spaceMono(fontSize: 9, color: AppColors.textMuted)),
             );
           },
@@ -740,6 +801,14 @@ class _DashboardPageState extends State<DashboardPage>
             begin: Alignment.topCenter, end: Alignment.bottomCenter,
           )),
         ),
+        if (predSpots.isNotEmpty)
+          LineChartBarData(
+            spots: predSpots, isCurved: true, curveSmoothness: 0.2, 
+            color: color.withOpacity(0.8), barWidth: 2.5,
+            dashArray: [5, 4], // Dashed line for predictions
+            dotData: const FlDotData(show: false),
+            belowBarData: BarAreaData(show: false),
+          ),
       ],
     ));
   }

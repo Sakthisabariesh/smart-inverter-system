@@ -1,12 +1,12 @@
 {
-    "name": "smart_inverter_app",
-    "short_name": "smart_inverter_app",
+    "name": "Smart Inverter",
+    "short_name": "Inverter",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#070B14",
+    "theme_color": "#FFBB3C",
+    "description": "AI-powered solar energy monitoring, prediction and net-zero tracking.",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

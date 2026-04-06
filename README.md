@@ -1,15 +1,15 @@
 <div align="center">
 
-# ⚡ Energy Monitoring System
+# ⚡ Smart Inverter System
 
-### Real-Time Solar Energy Monitoring & Net-Zero Analysis Platform
+### AI-Powered Solar Energy Monitoring, Prediction & Net-Zero Analysis
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
-[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
+[![FastAPI](https://img.shields.io/badge/Python-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![XGBoost](https://img.shields.io/badge/ML-XGBoost-FF6600?style=for-the-badge&logo=python&logoColor=white)](https://xgboost.readthedocs.io)
 [![InfluxDB](https://img.shields.io/badge/InfluxDB-Cloud-22ADF6?style=for-the-badge&logo=influxdb&logoColor=white)](https://www.influxdata.com)
 [![Docker](https://img.shields.io/badge/Docker-Node--RED-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com)
 [![Render](https://img.shields.io/badge/Deployed_on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com)
-[![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/features/actions)
 
 <br/>
 
@@ -19,8 +19,9 @@
 <br/>
 
 ![License](https://img.shields.io/badge/license-ISC-green?style=flat-square)
-![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Windows%20%7C%20Web-blue?style=flat-square)
-![Version](https://img.shields.io/badge/version-1.0.0-orange?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Windows%20%7C%20Web%20%7C%20Linux-blue?style=flat-square)
+![Version](https://img.shields.io/badge/version-3.0.0-orange?style=flat-square)
+![Backend](https://img.shields.io/badge/backend-Python%20FastAPI-brightgreen?style=flat-square)
 
 </div>
 
@@ -28,14 +29,14 @@
 
 ## 📌 Overview
 
-**Energy Monitoring System** is a cross-platform IoT application that provides **real-time visibility and intelligent analysis** of a solar-powered energy setup. It bridges the gap between raw hardware sensor data and actionable, user-friendly energy insights.
+**Smart Inverter System** is a cross-platform IoT application providing **real-time visibility and AI-powered intelligent analysis** of a solar-powered energy setup. It bridges raw hardware sensor data with actionable, user-friendly energy insights — with **zero hallucination** in predictions.
 
-Households and small buildings can actively monitor their:
-- ⚡ **Solar energy generation** (Watts)
-- 🔋 **Battery voltage & status**
-- 💡 **Load power consumption**
-- 🌡️ **Ambient temperature**
-- 🌿 **Net-Zero status, CO₂ savings, and ROI**
+- ⚡ **Solar energy generation** (Watts) — real-time + 24h AI forecast
+- 🔋 **Battery voltage & status** with animated gauge
+- 💡 **Load power consumption** — monitored & predicted
+- 🌡️ **Ambient temperature** tracking
+- 🌿 **Net-Zero status, CO₂ savings, and ROI analytics**
+- 🤖 **XGBoost ML predictions** — trained on your real 15-day inverter data
 
 ---
 
@@ -48,11 +49,15 @@ Households and small buildings can actively monitor their:
             ↓  (MQTT / HTTP)
       [Node-RED — Docker Container]
             ↓  (HTTPS Write API)
-    [InfluxDB Cloud — Time-Series DB]
-            ↓  (Flux Query)
-  [Node.js REST API — Render Cloud]
+    [InfluxDB Cloud — Time-Series DB]  ←── 30-day retention
+            ↓  (Flux Query, 8s timeout)
+  [Python FastAPI — Render Cloud]
+     ├── Background XGBoost Training (every 30 min)
+     ├── In-Memory Prediction Cache (<200ms response)
+     ├── Physics-Based Solar Model (panel specs)
+     └── Weather API Integration
             ↓  (HTTPS / JSON)
-   [Flutter App — Android & Windows]
+   [Flutter App — Android | Web | Windows | Linux]
             ↓
        [End User Dashboard]
 ```
@@ -71,13 +76,47 @@ Households and small buildings can actively monitor their:
 | **Solar/Load Donut Chart** | Visual ratio of energy generation vs. consumption |
 | **Power Balance Card** | Real-time surplus/deficit indicator with animated energy bar |
 | **Historical Trend Chart** | Line chart with 4 overlays (Solar, Load, Battery, Temp) across 1h / 6h / 24h |
-| **Net-Zero Snapshot** | Net-Zero status badge, Daily ₹ Savings, CO₂ avoided — all in one row |
+| **Auto-refresh** | Live data refreshes every 15 seconds |
+
+### 🤖 AI Forecasts Tab
+| Feature | Description |
+|---|---|
+| **24h Solar Forecast** | XGBoost model trained on 15 days of real inverter data |
+| **24h Load Prediction** | Evening-peak-aware prediction with holiday detection |
+| **Weather Integration** | Cloud cover attenuation applied to solar forecast |
+| **Data Source Badge** | Shows exactly how each prediction was made — no hallucination |
+| **10-Day History Chart** | Full 10-day bar chart; missing days shown as dimmed slivers |
+| **Anti-Hallucination** | Refuses to guess if no data — shows clear warning instead |
 
 ### 🌿 Net-Zero Analysis Screen
 | Tab | Feature |
 |---|---|
-| **Dashboard** | Monthly Savings Bar Chart, CO₂ Reduction Tracker (🌳 tree equivalence), ROI Breakdown, Baseline vs. Solar chart |
-| **Settings** | Configurable Electricity Rate (₹/kWh), CO₂ Factor (kg/kWh), System Cost (₹), Baseline Load (kWh) with live preview |
+| **Dashboard** | Monthly Savings Bar Chart, CO₂ Reduction Tracker (🌳 tree equivalence), ROI Breakdown |
+| **Settings** | ☀️ **Panel Setup** (Wp, count, efficiency, tilt, latitude), Electricity Rate, CO₂ Factor, System Cost, Baseline Load |
+
+---
+
+## 🤖 AI Prediction System
+
+The AI backend uses a **3-tier anti-hallucination architecture**:
+
+| Priority | Source | UI Badge |
+|---|---|---|
+| 1st | XGBoost trained on 15 days of real inverter readings | 🟢 `Live Data` |
+| 2nd | Physics-based curve from your entered panel specs | 🟡 `Panel Specs` |
+| 3rd | Derived from observed historical peak per hour | 🔵 `Historical Peak` |
+| None | **Refuses to predict** — shows clear warning | 🔴 `No Data` |
+
+**Solar Physics Model (when using panel specs):**
+```
+output_W = panel_Wp × panel_count × (efficiency%) × hour_factor × 0.80
+```
+where `hour_factor` is computed from real solar geometry (latitude + tilt angle).
+
+**Performance:**
+- Background model refresh: every **30 minutes**
+- Prediction endpoint response: **< 200ms** (served from cache)
+- InfluxDB query timeout: **8 seconds** (fail-fast)
 
 ---
 
@@ -85,12 +124,12 @@ Households and small buildings can actively monitor their:
 
 | Layer | Technology | Details |
 |---|---|---|
-| **Frontend** | Flutter (Dart) | Cross-platform: Android, Windows, Web |
+| **Frontend** | Flutter (Dart) | Android, Web, Windows, Linux |
 | **UI Libraries** | `fl_chart`, `google_fonts`, `shared_preferences` | Charts, typography, local settings |
-| **Backend API** | Node.js + Express | REST API deployed on Render |
-| **Database** | InfluxDB Cloud | Time-series, Flux query language |
+| **Backend API** | Python + FastAPI | REST API deployed on Render |
+| **ML Engine** | XGBoost + scikit-learn | Solar & load 24h forecasting |
+| **Database** | InfluxDB Cloud | Time-series, Flux query, 30-day retention |
 | **IoT Pipeline** | Node-RED | MQTT/HTTP bridge, runs in Docker |
-| **CI/CD** | GitHub Actions | Android APK + Windows EXE builds |
 | **Hosting** | Render (API), InfluxDB Cloud (DB) | Free-tier cloud deployments |
 
 ---
@@ -99,29 +138,34 @@ Households and small buildings can actively monitor their:
 
 ```
 smart-inverter-system/
-├── iot-backend/                  # Node.js REST API
-│   ├── app.js                    # Express server entry point
-│   ├── influx.js                 # InfluxDB client & queries
-│   ├── config/                   # Configuration files
-│   ├── models/                   # Data models
-│   ├── services/                 # Business logic services
+├── iot-backend-python/           # Python FastAPI backend
+│   ├── main.py                   # FastAPI app, background training loop
+│   ├── ml_predictor.py           # XGBoost models, physics solar model
+│   ├── cache.py                  # Thread-safe in-memory prediction cache
+│   ├── influx.py                 # InfluxDB client (8s timeout, 15d queries)
+│   ├── settings.py               # Pydantic settings (env vars)
+│   ├── requirements.txt          # Python dependencies
 │   ├── .env.example              # Environment variable template
-│   └── package.json
+│   └── .gitignore                # Excludes .env from git
 │
 ├── smart_inverter_app/           # Flutter frontend
 │   ├── lib/
-│   │   └── main.dart             # App entry point & all screens
+│   │   ├── main.dart             # App entry, dashboard, theme
+│   │   ├── ai_insights_tab.dart  # AI forecasts, 10-day history chart
+│   │   ├── net_zero_screen.dart  # Net-zero analytics + settings
+│   │   └── user_settings.dart   # Panel specs + local settings
 │   ├── android/                  # Android build config
 │   ├── windows/                  # Windows build config
-│   ├── web/                      # Web build config
+│   ├── web/                      # Web (PWA) build config
+│   ├── linux/                    # Linux build config
 │   └── pubspec.yaml              # Flutter dependencies
 │
 ├── .github/
 │   └── workflows/
-│       └── flutter-build.yml     # CI/CD: APK + EXE builds
+│       └── flutter-build.yml     # CI/CD: APK + Windows builds
 │
 ├── smart_inverter_architecture.drawio   # System architecture diagram
-├── render.yaml                          # Render deployment config
+├── render.yaml                          # Render auto-deploy config
 └── README.md
 ```
 
@@ -134,39 +178,37 @@ smart-inverter-system/
 | Tool | Version | Purpose |
 |---|---|---|
 | Flutter SDK | ≥ 3.x | Frontend development |
-| Dart SDK | ≥ 3.10.3 | Dart language runtime |
-| Node.js | ≥ 18.x | Backend API runtime |
+| Python | ≥ 3.11 | Backend API |
 | Docker | Latest | Running Node-RED |
 | InfluxDB Cloud | — | Time-series database (free tier) |
 
 ---
 
-### 1️⃣ Backend Setup (Node.js API)
+### 1️⃣ Backend Setup (Python FastAPI)
 
 ```bash
-# Navigate to backend directory
-cd iot-backend
+cd iot-backend-python
 
 # Install dependencies
-npm install
+pip install -r requirements.txt
 
 # Copy environment template and fill in your values
 cp .env.example .env
 ```
 
-Edit `.env` with your credentials:
-
+Edit `.env`:
 ```env
-INFLUXDB_URL=https://your-influxdb-cloud-url
-INFLUXDB_TOKEN=your_influxdb_token
-INFLUXDB_ORG=your_org
-INFLUXDB_BUCKET=your_bucket
-PORT=3000
+INFLUX_URL=https://your-influxdb-cloud-url
+INFLUX_TOKEN=your_influxdb_token
+INFLUX_ORG=your_org
+INFLUX_BUCKET=your_bucket
+WEATHER_API_KEY=your_openweathermap_key  # optional
+PORT=8000
 ```
 
 ```bash
 # Start the API server
-npm start
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ---
@@ -174,11 +216,10 @@ npm start
 ### 2️⃣ Node-RED (IoT Pipeline — Docker)
 
 ```bash
-# Pull and run Node-RED in Docker
 docker run -it -p 1880:1880 --name mynodered nodered/node-red
 ```
 
-Then import your Node-RED flow to:
+Import your Node-RED flow to:
 1. Subscribe to MQTT topics from the inverter sensors
 2. Transform the payload
 3. POST data to InfluxDB Cloud via Write API
@@ -188,38 +229,24 @@ Then import your Node-RED flow to:
 ### 3️⃣ Flutter App Setup
 
 ```bash
-# Navigate to Flutter project
 cd smart_inverter_app
 
 # Install Flutter packages
 flutter pub get
 
-# Run on Android device / emulator
+# Run on connected device
 flutter run
 
-# Build Android APK
-flutter build apk --release
-
-# Build Windows executable
-flutter build windows --release
+# Build for specific platform
+flutter build apk --release --split-per-abi   # Android
+flutter build web --release                    # Web
+flutter build windows --release                # Windows
+flutter build linux --release                  # Linux
 ```
 
-> **API Base URL:** Update the API base URL in `lib/main.dart` to point to your deployed Render backend or `localhost:3000` for local development.
-
----
-
-## 🔁 CI/CD Pipeline
-
-This project uses **GitHub Actions** to automatically build the app on every push/PR to `main`.
-
-```
-Push to main
-    └─▶ GitHub Actions (flutter-build.yml)
-            ├─▶ Build Android APK  → Upload as artifact
-            └─▶ Build Windows EXE  → Upload as artifact
-```
-
-The backend is **auto-deployed to Render** on every push to the `main` branch via `render.yaml`.
+> **API URL:** The app auto-selects the backend URL per platform:
+> - **Web** → Uses deployed Render URL (`_kApiProduction` in `main.dart`)
+> - **Mobile/Desktop** → Uses `127.0.0.1:8000` (local dev)
 
 ---
 
@@ -229,18 +256,35 @@ Base URL: `https://your-api.onrender.com`
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/latest` | Fetch the most recent sensor reading |
-| `GET` | `/api/history` | Fetch historical time-series data |
+| `GET` | `/` | Health check & version |
+| `GET` | `/power` | Latest inverter readings |
+| `GET` | `/history` | Time-series data (`field`, `range`, `daily`) |
+| `GET` | `/predict/load` | 24h load forecast (XGBoost / fallback) |
+| `GET` | `/predict/solar` | 24h solar forecast (XGBoost / physics / historical) |
+| `GET` | `/predict/status` | Model cache status, MAE accuracy, data points |
+| `GET` | `/weather` | Current weather + solar insight |
 
-**Sample Response (`/api/latest`):**
+**Sample `/predict/status`:**
 ```json
 {
-  "solar_power": 1240.5,
-  "load_power": 980.2,
-  "battery_voltage": 48.6,
-  "temperature": 34.1,
-  "timestamp": "2026-03-31T07:00:00Z"
+  "is_ready": true,
+  "last_refreshed": "4m ago",
+  "training_data_points": 360,
+  "load_model": { "trained": true, "mae_watts": 3.8 },
+  "solar_model": { "trained": true, "mae_watts": 12.1 }
 }
+```
+
+---
+
+## 🔁 CI/CD Pipeline
+
+```
+Push to main
+    └─▶ Render (auto-deploy Python API via render.yaml)
+    └─▶ GitHub Actions (flutter-build.yml)
+            ├─▶ Build Android APK  → Upload as artifact
+            └─▶ Build Windows EXE  → Upload as artifact
 ```
 
 ---
@@ -250,42 +294,18 @@ Base URL: `https://your-api.onrender.com`
 | SDG | Goal | Our Contribution |
 |---|---|---|
 | **SDG 7** — Affordable & Clean Energy | Ensure access to sustainable energy | Real-time solar monitoring maximizes renewable energy utilization |
-| **SDG 11** — Sustainable Cities | Make cities resilient & sustainable | Smart building-level energy monitoring tools for greener urban infrastructure |
-| **SDG 13** — Climate Action | Urgent action on climate change | Quantifies and visualizes daily CO₂ emissions avoided through solar use |
+| **SDG 11** — Sustainable Cities | Make cities resilient & sustainable | Smart building-level energy monitoring tools |
+| **SDG 13** — Climate Action | Urgent action on climate change | Quantifies and visualizes daily CO₂ emissions avoided through solar |
 
 ---
 
 ## 🔮 Future Scope
 
-1. 🤖 **AI-Based Smart Load Scheduling** — Shift non-critical loads to peak solar hours using ML predictions
+1. 🤖 **Smart Load Scheduling** — Shift non-critical loads to peak solar hours
 2. 🚗 **EV Charger Integration** — Prioritize EV charging using excess solar power
-3. 🔗 **Peer-to-Peer Energy Trading** — Blockchain-based surplus energy trading in local microgrids
-4. 🔔 **Push Notifications & Alerts** — Overload events, low battery, net-zero milestones
-5. 🏢 **Multi-Building Support** — Monitor multiple installations across a campus
-
----
-
-## 📦 Dependencies
-
-### Flutter (`pubspec.yaml`)
-```yaml
-dependencies:
-  http: ^1.6.0              # REST API calls
-  google_fonts: ^6.2.1      # Modern typography
-  fl_chart: ^0.69.0         # Charts & graphs
-  shared_preferences: ^2.5.5 # Persistent local settings
-```
-
-### Node.js (`package.json`)
-```json
-{
-  "@influxdata/influxdb-client": "^1.35.0",
-  "express": "^4.22.1",
-  "cors": "^2.8.6",
-  "dotenv": "^17.3.1",
-  "axios": "^1.13.6"
-}
-```
+3. 🔗 **Peer-to-Peer Energy Trading** — Surplus energy trading in local microgrids
+4. 🔔 **Push Notifications** — Overload events, low battery, net-zero milestones
+5. 🏢 **Multi-Building Support** — Monitor multiple installations
 
 
 ## 📄 License

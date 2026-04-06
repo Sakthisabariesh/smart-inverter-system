@@ -3,10 +3,12 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 
 from settings import settings
 
+# 8-second timeout: fail fast rather than hanging for 10+ seconds
 _client = InfluxDBClient(
     url=settings.influx_url,
     token=settings.influx_token,
     org=settings.influx_org,
+    timeout=8_000,   # milliseconds
 )
 
 _query_api = _client.query_api()
@@ -49,15 +51,22 @@ from(bucket: "{settings.influx_bucket}")
 # ---------------------------------------------------------------------------
 
 ALLOWED_FIELDS = {"pv_input_w", "load_w", "battery_percent", "temperature", "battery_voltage"}
-ALLOWED_RANGES = {"1h", "6h", "24h"}
+ALLOWED_RANGES = {"1h", "6h", "24h", "10d", "15d", "30d"}
 
-_WINDOW_MAP = {"1h": "15s", "6h": "2m", "24h": "10m"}
+_WINDOW_MAP = {
+    "1h":  "15s",
+    "6h":  "2m",
+    "24h": "10m",
+    "10d": "1h",
+    "15d": "1h",
+    "30d": "2h",
+}
 
 
-def get_history_data(field: str, range_: str) -> list[dict]:
+def get_history_data(field: str, range_: str, every_: str = None) -> list[dict]:
     """Return a list of {time, value} dicts for the requested field + range."""
 
-    every = _WINDOW_MAP.get(range_, "1m")
+    every = every_ or _WINDOW_MAP.get(range_, "1m")
 
     flux = f"""
 from(bucket: "{settings.influx_bucket}")

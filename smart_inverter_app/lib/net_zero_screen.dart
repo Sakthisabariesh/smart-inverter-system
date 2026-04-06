@@ -18,6 +18,13 @@ class _NetZeroScreenState extends State<NetZeroScreen>
   final _co2Ct    = TextEditingController();
   final _costCt   = TextEditingController();
   final _baseCt   = TextEditingController();
+  final _locCt    = TextEditingController();
+  // Panel spec controllers
+  final _panelWpCt    = TextEditingController();
+  final _panelCntCt   = TextEditingController();
+  final _panelEffCt   = TextEditingController();
+  final _panelTiltCt  = TextEditingController();
+  final _latCt        = TextEditingController();
   late TabController _tabs;
 
   @override
@@ -26,14 +33,23 @@ class _NetZeroScreenState extends State<NetZeroScreen>
     _tabs = TabController(length: 2, vsync: this);
     _rateCt.text  = UserSettings.elecRate.toString();
     _co2Ct.text   = UserSettings.co2Factor.toString();
-    _costCt.text  = UserSettings.systemCost.toString();
-    _baseCt.text  = UserSettings.baselineLoad.toString();
+    _costCt.text  = UserSettings.systemCost > 0 ? UserSettings.systemCost.toString() : '';
+    _baseCt.text  = UserSettings.baselineLoad > 0 ? UserSettings.baselineLoad.toString() : '';
+    _locCt.text   = UserSettings.locationCity;
+    // Panel specs (show blank if 0 = not set yet)
+    _panelWpCt.text   = UserSettings.panelWp > 0   ? UserSettings.panelWp.toString()   : '';
+    _panelCntCt.text  = UserSettings.panelCount > 0 ? UserSettings.panelCount.toString() : '';
+    _panelEffCt.text  = UserSettings.panelEfficiency > 0 ? UserSettings.panelEfficiency.toString() : '';
+    _panelTiltCt.text = UserSettings.panelTiltDeg.toString();
+    _latCt.text       = UserSettings.latitude.toString();
   }
 
   @override
   void dispose() {
     _rateCt.dispose(); _co2Ct.dispose();
-    _costCt.dispose(); _baseCt.dispose();
+    _costCt.dispose(); _baseCt.dispose(); _locCt.dispose();
+    _panelWpCt.dispose(); _panelCntCt.dispose();
+    _panelEffCt.dispose(); _panelTiltCt.dispose(); _latCt.dispose();
     _tabs.dispose();
     super.dispose();
   }
@@ -52,10 +68,22 @@ class _NetZeroScreenState extends State<NetZeroScreen>
 
   void _save() {
     setState(() {
-      UserSettings.elecRate    = _rate;
-      UserSettings.co2Factor   = _co2;
-      UserSettings.systemCost  = _cost;
+      UserSettings.elecRate     = _rate;
+      UserSettings.co2Factor    = _co2;
+      UserSettings.systemCost   = _cost;
       UserSettings.baselineLoad = _baseline;
+      UserSettings.locationCity = _locCt.text.trim();
+      // Panel specs — only save if non-zero
+      final wp  = double.tryParse(_panelWpCt.text)  ?? 0.0;
+      final cnt = int.tryParse(_panelCntCt.text)    ?? 0;
+      final eff = double.tryParse(_panelEffCt.text) ?? 0.0;
+      final tilt= double.tryParse(_panelTiltCt.text)?? 15.0;
+      final lat = double.tryParse(_latCt.text)      ?? 10.79;
+      UserSettings.panelWp         = wp;
+      UserSettings.panelCount      = cnt;
+      UserSettings.panelEfficiency = eff;
+      UserSettings.panelTiltDeg    = tilt;
+      UserSettings.latitude        = lat;
     });
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('Settings updated', style: GoogleFonts.inter()),
@@ -374,7 +402,7 @@ class _NetZeroScreenState extends State<NetZeroScreen>
             groupsSpace: 6,
             barGroups: List.generate(12, (i) => BarChartGroupData(x: i, barsSpace: 3, barRods: [
               BarChartRodData(toY: _baseline, width: 8,
-                color: AppColors.border.withOpacity(0.8),
+              color: AppColors.border.withOpacity(0.8),
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(4))),
               BarChartRodData(toY: _baseline * factors[i], width: 8,
                 gradient: LinearGradient(
@@ -403,23 +431,77 @@ class _NetZeroScreenState extends State<NetZeroScreen>
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(16, 20, 16, 100),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+
+        // ──────────────────── PANEL SETUP ────────────────────
+        _sectionTitle('☀️ Panel Setup'),
+        const SizedBox(height: 6),
+        Text('Enter your actual solar panel specifications. Used by the AI to produce accurate, physics-based predictions instead of estimates.',
+          style: GoogleFonts.inter(fontSize: 12, color: AppColors.textSecondary, height: 1.5)),
+        const SizedBox(height: 14),
+        _settingsField('Panel Rated Power', _panelWpCt, 'Wp / panel',
+          Icons.solar_power_rounded, AppColors.solar, 'e.g. 400'),
+        const SizedBox(height: 12),
+        _settingsField('Number of Panels', _panelCntCt, 'panels',
+          Icons.grid_view_rounded, AppColors.solar, 'e.g. 5', isInt: true),
+        const SizedBox(height: 12),
+        _settingsField('Panel Efficiency', _panelEffCt, '%',
+          Icons.bolt_rounded, AppColors.voltage, 'e.g. 20.5'),
+        const SizedBox(height: 12),
+        _settingsField('Panel Tilt Angle', _panelTiltCt, '° from horizontal',
+          Icons.rotate_right_rounded, AppColors.battery, 'e.g. 15'),
+        const SizedBox(height: 12),
+        _settingsField('Location Latitude', _latCt, '°N',
+          Icons.location_on_rounded, AppColors.co2, 'e.g. 10.79 (Trichy)'),
+
+        // Computed system capacity preview
+        if ((double.tryParse(_panelWpCt.text) ?? 0) > 0 &&
+            (int.tryParse(_panelCntCt.text) ?? 0) > 0)
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: AppColors.solar.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: AppColors.solar.withOpacity(0.3)),
+              ),
+              child: Row(children: [
+                const Icon(Icons.check_circle_rounded, color: AppColors.solar, size: 16),
+                const SizedBox(width: 8),
+                Text(
+                  'System capacity: ${((double.tryParse(_panelWpCt.text) ?? 0) * (int.tryParse(_panelCntCt.text) ?? 0)).toStringAsFixed(0)} Wp rated',
+                  style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.solar),
+                ),
+              ]),
+            ),
+          ),
+
+        const SizedBox(height: 28),
+        const Divider(color: AppColors.border),
+        const SizedBox(height: 20),
+
+        // ─────────────────── CALCULATION PARAMETERS ────────────────
         _sectionTitle('Calculation Parameters'),
         const SizedBox(height: 6),
-        Text('These values are used to compute energy savings, CO₂ impact, and ROI across the app.',
-          style: GoogleFonts.inter(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
+        Text('Used to compute savings, CO₂ impact, and ROI. Enter your actual values.',
+          style: GoogleFonts.inter(fontSize: 12, color: AppColors.textSecondary, height: 1.5)),
         const SizedBox(height: 20),
         _settingsField('Electricity Rate', _rateCt, '₹/kWh', Icons.currency_rupee_rounded,
-          AppColors.solar, 'e.g. 8.50'),
+          AppColors.solar, 'e.g. 8.50 (check your bill)'),
+        const SizedBox(height: 14),
+        _settingsField('Location City', _locCt, '', Icons.location_city_rounded,
+          AppColors.voltage, 'e.g. Trichy', isText: true),
         const SizedBox(height: 14),
         _settingsField('Grid CO₂ Emission Factor', _co2Ct, 'kg CO₂/kWh', Icons.cloud_rounded,
-          AppColors.co2, 'e.g. 0.82'),
+          AppColors.co2, 'Indian grid avg: 0.82'),
         const SizedBox(height: 14),
         _settingsField('System Installation Cost', _costCt, '₹', Icons.account_balance_wallet_rounded,
-          AppColors.savings, 'e.g. 150000'),
+          AppColors.savings, 'Enter your actual system cost'),
         const SizedBox(height: 14),
         _settingsField('Baseline Daily Energy', _baseCt, 'kWh/day', Icons.insights_rounded,
-          AppColors.load, 'e.g. 15.0'),
+          AppColors.load, 'Your daily usage before solar'),
         const SizedBox(height: 24),
+
         // Preview card
         _buildLivePreview(),
         const SizedBox(height: 24),
@@ -467,13 +549,17 @@ class _NetZeroScreenState extends State<NetZeroScreen>
   ]);
 
   Widget _settingsField(String label, TextEditingController ctrl, String suffix,
-      IconData icon, Color color, String hint) {
+      IconData icon, Color color, String hint, {bool isText = false, bool isInt = false}) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(label, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
       const SizedBox(height: 6),
       TextField(
         controller: ctrl,
-        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        keyboardType: isText
+            ? TextInputType.text
+            : isInt
+                ? TextInputType.number
+                : const TextInputType.numberWithOptions(decimal: true),
         style: GoogleFonts.inter(color: AppColors.textPrimary, fontSize: 15),
         onChanged: (_) => setState(() {}),
         decoration: InputDecoration(

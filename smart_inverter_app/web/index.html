@@ -1,38 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
-
   <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Inverter System — AI-powered solar energy monitoring, prediction and net-zero tracking.">
+  <meta name="theme-color" content="#070B14">
 
-  <!-- iOS meta tags & icons -->
+  <!-- PWA / Mobile -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="smart_inverter_app">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Smart Inverter">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>smart_inverter_app</title>
+  <title>Smart Inverter</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Loading screen shown before Flutter boots */
+    body {
+      margin: 0;
+      background-color: #070B14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+    #loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    #loading .icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, #FFBB3C, #F97316);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+    }
+    #loading p {
+      color: #94A3B8;
+      font-size: 13px;
+      margin: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading .spinner {
+      width: 24px; height: 24px;
+      border: 2px solid #1F2D45;
+      border-top-color: #FFBB3C;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+  </style>
 </head>
 <body>
+  <div id="loading">
+    <div class="icon">⚡</div>
+    <div class="spinner"></div>
+    <p>Smart Inverter</p>
+  </div>
+  <script>
+    // Hide loading screen once Flutter renders
+    window.addEventListener('flutter-first-frame', () => {
+      const el = document.getElementById('loading');
+      if (el) el.style.display = 'none';
+    });
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

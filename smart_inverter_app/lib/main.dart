@@ -13,13 +13,9 @@ import 'net_zero_screen.dart';
 import 'user_settings.dart';
 
 // ─── API Base URL ────────────────────────────────────────────────────
-// Auto-selects correct backend URL per platform:
-//   Web      → deployed Render URL (or same origin in production)
-//   Android  → 10.0.2.2 for emulator, real IP for physical device
-//   Desktop  → localhost
-const String _kApiLocalhost  = 'http://127.0.0.1:8000';
+// Always uses the deployed Render backend — works on all platforms.
 const String _kApiProduction = 'https://smart-inverter-api.onrender.com';
-final String kApiBase = kIsWeb ? _kApiProduction : _kApiLocalhost;
+final String kApiBase = _kApiProduction;
 
 // ─────────────────────────── App Entry ───────────────────────────────
 void main() async {

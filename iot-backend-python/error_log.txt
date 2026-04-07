@@ -1,0 +1,364 @@
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 116, in _prediction_refresh_loop
+    await _refresh_prediction_cache()
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 71, in _refresh_prediction_cache
+    await asyncio.to_thread(ml_predictor.train_load_model, load_history)
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 175, in train_load_model
+    df = _prepare_df(history_15d)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 130, in _prepare_df
+    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 1040, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 435, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 470, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/strptime.pyx", line 563, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 511, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 617, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "2026-04-07T10:09:11.798345+00:00" doesn't match format "%Y-%m-%dT%H:%M:%S%z". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 387, in predict_solar_endpoint
+    result = await asyncio.to_thread(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 274, in predict_solar
+    df_history   = _prepare_df(history_15d)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 130, in _prepare_df
+    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 1040, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 435, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 470, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/strptime.pyx", line 563, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 511, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 617, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "2026-04-07T10:13:06.490683+00:00" doesn't match format "%Y-%m-%dT%H:%M:%S%z". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py", line 571, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1450, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 192, in power
+    data = await asyncio.to_thread(get_power_data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\influx.py", line 41, in get_power_data
+    tables = _query_api.query(flux)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\client\query_api.py", line 203, in query
+    response = self._query_api.post_query(org=org, query=self._create_query(query, self.default_dialect, params),
+                                          async_req=False, _preload_content=False, _return_http_data_only=False)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\service\query_service.py", line 285, in post_query
+    (data) = self.post_query_with_http_info(**kwargs)  # noqa: E501
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\service\query_service.py", line 311, in post_query_with_http_info
+    return self.api_client.call_api(
+           ~~~~~~~~~~~~~~~~~~~~~~~~^
+        '/api/v2/query', 'POST',
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+        collection_formats={},
+        ^^^^^^^^^^^^^^^^^^^^^^
+        urlopen_kw=kwargs.get('urlopen_kw', None))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\api_client.py", line 343, in call_api
+    return self.__call_api(resource_path, method,
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+                           path_params, query_params, header_params,
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+                           _return_http_data_only, collection_formats,
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                           _preload_content, _request_timeout, urlopen_kw)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\api_client.py", line 173, in __call_api
+    response_data = self.request(
+        method, url, query_params=query_params, headers=header_params,
+        post_params=post_params, body=body,
+        _preload_content=_preload_content,
+        _request_timeout=_request_timeout, **urlopen_kw)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\api_client.py", line 388, in request
+    return self.rest_client.POST(url,
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^
+                                 query_params=query_params,
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                                 body=body,
+                                 ^^^^^^^^^^
+                                 **urlopen_kw)
+                                 ^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\rest.py", line 311, in POST
+    return self.request("POST", url,
+           ~~~~~~~~~~~~^^^^^^^^^^^^^
+                        headers=headers,
+                        ^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                        body=body,
+                        ^^^^^^^^^^
+                        **urlopen_kw)
+                        ^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\rest.py", line 186, in request
+    r = self.pool_manager.request(
+        method, url,
+    ...<3 lines>...
+        headers=headers,
+        **urlopen_kw)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py", line 143, in request
+    return self.request_encode_body(
+           ~~~~~~~~~~~~~~~~~~~~~~~~^
+        method, url, fields=fields, headers=headers, **urlopen_kw
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py", line 278, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py", line 457, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py", line 465, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='us-east-1-1.aws.cloud2.influxdata.com', port=443): Read timed out. (read timeout=7.998881900013657)
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 534, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py", line 571, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1450, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 236, in history
+    points = await asyncio.to_thread(get_history_data, field, range, every_)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\influx.py", line 79, in get_history_data
+    tables = _query_api.query(flux)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\client\query_api.py", line 203, in query
+    response = self._query_api.post_query(org=org, query=self._create_query(query, self.default_dialect, params),
+                                          async_req=False, _preload_content=False, _return_http_data_only=False)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\service\query_service.py", line 285, in post_query
+    (data) = self.post_query_with_http_info(**kwargs)  # noqa: E501
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\service\query_service.py", line 311, in post_query_with_http_info
+    return self.api_client.call_api(
+           ~~~~~~~~~~~~~~~~~~~~~~~~^
+        '/api/v2/query', 'POST',
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+        collection_formats={},
+        ^^^^^^^^^^^^^^^^^^^^^^
+        urlopen_kw=kwargs.get('urlopen_kw', None))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\api_client.py", line 343, in call_api
+    return self.__call_api(resource_path, method,
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+                           path_params, query_params, header_params,
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+                           _return_http_data_only, collection_formats,
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                           _preload_content, _request_timeout, urlopen_kw)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\api_client.py", line 173, in __call_api
+    response_data = self.request(
+        method, url, query_params=query_params, headers=header_params,
+        post_params=post_params, body=body,
+        _preload_content=_preload_content,
+        _request_timeout=_request_timeout, **urlopen_kw)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\api_client.py", line 388, in request
+    return self.rest_client.POST(url,
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^
+                                 query_params=query_params,
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                                 body=body,
+                                 ^^^^^^^^^^
+                                 **urlopen_kw)
+                                 ^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\rest.py", line 311, in POST
+    return self.request("POST", url,
+           ~~~~~~~~~~~~^^^^^^^^^^^^^
+                        headers=headers,
+                        ^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+                        body=body,
+                        ^^^^^^^^^^
+                        **urlopen_kw)
+                        ^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\influxdb_client\_sync\rest.py", line 186, in request
+    r = self.pool_manager.request(
+        method, url,
+    ...<3 lines>...
+        headers=headers,
+        **urlopen_kw)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py", line 143, in request
+    return self.request_encode_body(
+           ~~~~~~~~~~~~~~~~~~~~~~~~^
+        method, url, fields=fields, headers=headers, **urlopen_kw
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py", line 278, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py", line 457, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py", line 465, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 536, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='us-east-1-1.aws.cloud2.influxdata.com', port=443): Read timed out. (read timeout=7.999116599996341)
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 124, in _prediction_refresh_loop
+    await _refresh_prediction_cache()
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 71, in _refresh_prediction_cache
+    await asyncio.to_thread(ml_predictor.train_load_model, load_history)
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 175, in train_load_model
+    df = _prepare_df(history_15d)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 130, in _prepare_df
+    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 1040, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 435, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 470, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/strptime.pyx", line 563, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 511, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 617, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "2026-04-07T10:46:59.463402+00:00" doesn't match format "%Y-%m-%dT%H:%M:%S%z". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+

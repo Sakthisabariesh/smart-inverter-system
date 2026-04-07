@@ -362,3 +362,205 @@ ValueError: time data "2026-04-07T10:46:59.463402+00:00" doesn't match format "%
     - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
     - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
 
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 387, in predict_solar_endpoint
+    result = await asyncio.to_thread(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 274, in predict_solar
+    df_history   = _prepare_df(history_15d)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 130, in _prepare_df
+    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 1040, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 435, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 470, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/strptime.pyx", line 563, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 511, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 617, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "2026-04-07T10:55:17.379328+00:00" doesn't match format "%Y-%m-%dT%H:%M:%S%z". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 387, in predict_solar_endpoint
+    result = await asyncio.to_thread(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 274, in predict_solar
+    df_history   = _prepare_df(history_15d)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 130, in _prepare_df
+    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 1040, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 435, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 470, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/strptime.pyx", line 563, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 511, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 617, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "2026-04-07T10:55:19.418221+00:00" doesn't match format "%Y-%m-%dT%H:%M:%S%z". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 387, in predict_solar_endpoint
+    result = await asyncio.to_thread(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 274, in predict_solar
+    df_history   = _prepare_df(history_15d)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 130, in _prepare_df
+    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 1040, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 435, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 470, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/strptime.pyx", line 563, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 511, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 617, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "2026-04-07T10:56:07.058808+00:00" doesn't match format "%Y-%m-%dT%H:%M:%S%z". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 387, in predict_solar_endpoint
+    result = await asyncio.to_thread(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 274, in predict_solar
+    df_history   = _prepare_df(history_15d)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 130, in _prepare_df
+    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 1040, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 435, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 470, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/strptime.pyx", line 563, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 511, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 617, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "2026-04-07T10:57:40.379109+00:00" doesn't match format "%Y-%m-%dT%H:%M:%S%z". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 387, in predict_solar_endpoint
+    result = await asyncio.to_thread(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 274, in predict_solar
+    df_history   = _prepare_df(history_15d)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 130, in _prepare_df
+    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 1040, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 435, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 470, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/strptime.pyx", line 563, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 511, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 617, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "2026-04-07T11:09:32.162855+00:00" doesn't match format "%Y-%m-%dT%H:%M:%S%z". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 124, in _prediction_refresh_loop
+    await _refresh_prediction_cache()
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\main.py", line 71, in _refresh_prediction_cache
+    await asyncio.to_thread(ml_predictor.train_load_model, load_history)
+  File "C:\Python314\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 175, in train_load_model
+    df = _prepare_df(history_15d)
+  File "C:\Users\sakth\OneDrive\Desktop\smart-inverter-system\iot-backend-python\ml_predictor.py", line 130, in _prepare_df
+    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 1040, in to_datetime
+    values = convert_listlike(arg._values, format)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 435, in _convert_listlike_datetimes
+    return _array_strptime_with_fallback(arg, name, utc, format, exact, errors)
+  File "C:\Users\sakth\AppData\Roaming\Python\Python314\site-packages\pandas\core\tools\datetimes.py", line 470, in _array_strptime_with_fallback
+    result, tz_out = array_strptime(arg, fmt, exact=exact, errors=errors, utc=utc)
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/strptime.pyx", line 563, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 511, in pandas._libs.tslibs.strptime.array_strptime
+  File "pandas/_libs/tslibs/strptime.pyx", line 617, in pandas._libs.tslibs.strptime._parse_with_format
+ValueError: time data "2026-04-07T11:17:01.113278+00:00" doesn't match format "%Y-%m-%dT%H:%M:%S%z". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+

@@ -127,7 +127,9 @@ def _prepare_df(history: list[dict]) -> pd.DataFrame | None:
     if not history:
         return None
     df = pd.DataFrame(history)
-    df["time"] = pd.to_datetime(df["time"], utc=True).dt.tz_localize(None)
+    # Use format='ISO8601' to handle timestamps with or without microseconds
+    # e.g. "2026-04-07T11:17:37.499151+00:00" — the strict default format fails on these
+    df["time"] = pd.to_datetime(df["time"], format="ISO8601", utc=True).dt.tz_localize(None)
     df.set_index("time", inplace=True)
     df = df.sort_index()
     if len(df) > 1:

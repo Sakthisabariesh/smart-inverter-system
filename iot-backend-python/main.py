@@ -177,6 +177,7 @@ app.add_middleware(
 # ---------------------------------------------------------------------------
 
 @app.get("/", tags=["health"])
+@app.head("/", tags=["health"])
 def root():
     return {"message": "Smart Energy Backend Running", "version": "3.0.0"}
 
